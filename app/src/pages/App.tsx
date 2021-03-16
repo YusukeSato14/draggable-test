@@ -22,7 +22,7 @@ function App() {
           x: 0,
           y: 0,
         },
-        style: { backgroundColor: colorList[0] },
+        style: { backgroundColor: colorList[cards.length % 18] },
       }
     ]);
   };
