@@ -18,7 +18,7 @@ type Card = {
 
 type SetCards = React.Dispatch<React.SetStateAction<Card[]>>
 
-const colorList = [
+export const colorList = [
   '#90A4AE',
   '#E0E0E0',
   '#A1887F',

@@ -1,7 +1,7 @@
 import { MouseEventHandler, useState } from 'react';
 
 import '../assets/App.css';
-import CardList from '../components/CardList';
+import CardList, { colorList } from '../components/CardList';
 
 function App() {
   const initialCardState = {
@@ -10,7 +10,7 @@ function App() {
       x: 0,
       y: 0,
     },
-    style: { backgroundColor: '#000000' }
+    style: { backgroundColor: colorList[0] }
   };
   const [cards, setCards] = useState([initialCardState]);
   const addCard: MouseEventHandler = () => {
@@ -22,7 +22,7 @@ function App() {
           x: 0,
           y: 0,
         },
-        style: { backgroundColor: '#000000' },
+        style: { backgroundColor: colorList[0] },
       }
     ]);
   };
