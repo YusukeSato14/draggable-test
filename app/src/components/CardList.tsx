@@ -60,7 +60,7 @@ const CardList = ({ cards, setCards }: Props) => {
   };
 
   const transformColor = (id: number, x: number, y: number) => {
-    const colorKey = Math.abs(Math.ceil((x + y) / 100 % 18));
+    const colorKey = Math.abs(Math.ceil((x + y) / 50 % 18));
     const color = colorList[colorKey];
     const styles = {
       backgroundColor: color,
