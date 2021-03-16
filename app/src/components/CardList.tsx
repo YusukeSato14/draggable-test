@@ -60,7 +60,7 @@ const CardList = ({ cards, setCards }: Props) => {
   };
 
   const transformColor = (id: number, x: number, y: number) => {
-    const colorKey = Math.ceil((x + y) / 100 % 18);
+    const colorKey = Math.abs(Math.ceil((x + y) / 100 % 18));
     const color = colorList[colorKey];
     const styles = {
       backgroundColor: color,
@@ -69,7 +69,7 @@ const CardList = ({ cards, setCards }: Props) => {
   };
 
   return (
-    <div>
+    <div className="center">
       {cards.map(card => (
         <Draggable bounds="body" onDrag={handleDrag(card.id)} key={card.id}>
           <div key={card.id} className="paper" style={card.style}>dog</div>
