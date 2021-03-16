@@ -1,10 +1,7 @@
-body {
-  width: 100vw;
-  height: 100vh;
-}
-
 .App {
   text-align: center;
+  width: 100vw;
+  height: 100vh;
 }
 
 .App-logo {
@@ -45,6 +42,7 @@ body {
 .paper {
   width: 120px;
   height: 120px;
+  position: absolute;
 }
 
 .button {
@@ -55,4 +53,11 @@ body {
   border-radius: 7px;
   height: 30px;
   width: 70px;
+}
+
+.center {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
