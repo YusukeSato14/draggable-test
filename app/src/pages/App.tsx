@@ -10,7 +10,8 @@ function App() {
       x: 0,
       y: 0,
     },
-    style: { backgroundColor: colorList[0] }
+    style: { backgroundColor: colorList[0] },
+    value: '',
   };
   const [cards, setCards] = useState([initialCardState]);
   const addCard: MouseEventHandler = () => {
@@ -23,6 +24,7 @@ function App() {
           y: 0,
         },
         style: { backgroundColor: colorList[cards.length % 18] },
+        value: '',
       }
     ]);
   };

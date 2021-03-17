@@ -1,3 +1,4 @@
+import { InputBase } from '@material-ui/core';
 import Draggable, { DraggableData, DraggableEvent } from 'react-draggable';
 
 type Props = {
@@ -14,6 +15,7 @@ type Card = {
   style: {
     backgroundColor: string;
   };
+  value: string;
 }
 
 type SetCards = React.Dispatch<React.SetStateAction<Card[]>>
@@ -54,6 +56,7 @@ const CardList = ({ cards, setCards }: Props) => {
           y: y + ui.deltaY,
         },
         style: styles,
+        value: cards[id].value,
       },
       ...cards.slice(id + 1)
     ])
@@ -68,11 +71,35 @@ const CardList = ({ cards, setCards }: Props) => {
     return styles;
   };
 
+  const handleChange = (id: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
+    setCards([
+      ...cards.slice(0, id),
+      {
+        ...cards[id],
+        deltaPosition: cards[id].deltaPosition,
+        style: cards[id].style,
+        value: event.target.value,
+      },
+      ...cards.slice(id + 1)
+    ])
+  }
+
   return (
     <div className="center">
       {cards.map(card => (
         <Draggable bounds="body" onDrag={handleDrag(card.id)} key={card.id}>
-          <div key={card.id} className="paper" style={card.style}>dog</div>
+          <div key={card.id} className="paper" style={card.style}>
+            <InputBase
+              key={card.id}
+              className="paper"
+              style={card.style}
+              multiline
+              rows={4}
+              placeholder="input idea"
+              value={card.value}
+              onChange={handleChange(card.id)}
+            />
+          </div>
         </Draggable>
       ))}
     </div>

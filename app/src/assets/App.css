@@ -41,8 +41,10 @@
 
 .paper {
   width: 120px;
-  height: 120px;
   position: absolute;
+  border-radius: 5px;
+  padding: 8px;
+  cursor: move;
 }
 
 .button {
