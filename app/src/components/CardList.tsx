@@ -16,6 +16,7 @@ type Card = {
   style: {
     backgroundColor: string;
   };
+  fixedColor: boolean;
   value: string;
 }
 
@@ -81,13 +82,22 @@ const AntSwitch = withStyles((theme: Theme) =>
 )(Switch);
 
 const CardList = ({ cards, setCards }: Props) => {
-  const [fixedColor, setFixedColor] = useState(false);
-  const handleColor = (event: ChangeEvent<HTMLInputElement>) => {
-    setFixedColor(!fixedColor);
+  const handleColor = (id: number) => (event: ChangeEvent<HTMLInputElement>) => {
+    setCards([
+      ...cards.slice(0, id),
+      {
+        ...cards[id],
+        deltaPosition: cards[id].deltaPosition,
+        style: cards[id].style,
+        fixedColor: !cards[id].fixedColor,
+        value: cards[id].value,
+      },
+      ...cards.slice(id + 1)
+    ]);
   };
 
   const handleDrag = (id: number) => (e: DraggableEvent, ui: DraggableData) => {
-    const styles = fixedColor ? cards[id].style : transformColor(id, cards[id].deltaPosition.x, cards[id].deltaPosition.y);
+    const styles = cards[id].fixedColor ? cards[id].style : transformColor(id, cards[id].deltaPosition.x, cards[id].deltaPosition.y);
 
     let { x, y } = cards[id].deltaPosition;
     setCards([
@@ -133,8 +143,8 @@ const CardList = ({ cards, setCards }: Props) => {
         <Draggable bounds="body" onDrag={handleDrag(card.id)} key={card.id}>
           <div key={card.id} className="paper" style={card.style}>
             <AntSwitch
-              checked={fixedColor}
-              onChange={handleColor}
+              checked={card.fixedColor}
+              onChange={handleColor(card.id)}
               name="colorSwitch"
             />
             <InputBase

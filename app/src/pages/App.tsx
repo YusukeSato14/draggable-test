@@ -11,6 +11,7 @@ function App() {
       y: 0,
     },
     style: { backgroundColor: colorList[0] },
+    fixedColor: false,
     value: '',
   };
   const [cards, setCards] = useState([initialCardState]);
@@ -24,6 +25,7 @@ function App() {
           y: 0,
         },
         style: { backgroundColor: colorList[cards.length % 18] },
+        fixedColor: false,
         value: '',
       }
     ]);
