@@ -12,7 +12,7 @@ type Card = {
   style: {
     backgroundColor: string;
   };
-  fixedColor: boolean;
+  isFixedColor: boolean;
   value: string;
 }
 
@@ -79,7 +79,7 @@ const AntSwitch = withStyles((theme: Theme) =>
 
 const CardList = ({ cards, setCards }: Props) => {
   const handleDrag = (id: number) => (e: DraggableEvent, data: DraggableData) => {
-    const styles = cards[id].fixedColor ? cards[id].style : transformColor(id, data);
+    const styles = cards[id].isFixedColor ? cards[id].style : transformColor(id, data);
 
     setCards([
       ...cards.slice(0, id),
@@ -98,7 +98,7 @@ const CardList = ({ cards, setCards }: Props) => {
       {
         ...cards[id],
         style: cards[id].style,
-        fixedColor: !cards[id].fixedColor,
+        isFixedColor: !cards[id].isFixedColor,
         value: cards[id].value,
       },
       ...cards.slice(id + 1)
@@ -132,7 +132,7 @@ const CardList = ({ cards, setCards }: Props) => {
         <Draggable bounds="body" onDrag={handleDrag(card.id)} key={card.id}>
           <div key={card.id} className="paper" style={card.style}>
             <AntSwitch
-              checked={card.fixedColor}
+              checked={card.isFixedColor}
               onChange={toggleFixedColor(card.id)}
               name="colorSwitch"
             />

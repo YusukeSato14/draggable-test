@@ -7,7 +7,7 @@ function App() {
   const initialCardState = {
     id: 0,
     style: { backgroundColor: colorList[0] },
-    fixedColor: false,
+    isFixedColor: false,
     value: '',
   };
   const [cards, setCards] = useState([initialCardState]);
@@ -17,7 +17,7 @@ function App() {
       {
         id: cards.length,
         style: { backgroundColor: colorList[cards.length % 18] },
-        fixedColor: false,
+        isFixedColor: false,
         value: '',
       }
     ]);
