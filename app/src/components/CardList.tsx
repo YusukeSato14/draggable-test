@@ -78,19 +78,6 @@ const AntSwitch = withStyles((theme: Theme) =>
 )(Switch);
 
 const CardList = ({ cards, setCards }: Props) => {
-  const handleColor = (id: number) => (event: ChangeEvent<HTMLInputElement>) => {
-    setCards([
-      ...cards.slice(0, id),
-      {
-        ...cards[id],
-        style: cards[id].style,
-        fixedColor: !cards[id].fixedColor,
-        value: cards[id].value,
-      },
-      ...cards.slice(id + 1)
-    ]);
-  };
-
   const handleDrag = (id: number) => (e: DraggableEvent, data: DraggableData) => {
     const styles = cards[id].fixedColor ? cards[id].style : transformColor(id, data);
 
@@ -105,16 +92,20 @@ const CardList = ({ cards, setCards }: Props) => {
     ]);
   };
 
-  const transformColor = (id: number, data: DraggableData) => {
-    const colorKey = Math.abs(Math.ceil((data.x + data.y) / 50 % 18));
-    const color = colorList[colorKey];
-    const styles = {
-      backgroundColor: color,
-    };
-    return styles;
+  const toggleFixedColor = (id: number) => (event: ChangeEvent<HTMLInputElement>) => {
+    setCards([
+      ...cards.slice(0, id),
+      {
+        ...cards[id],
+        style: cards[id].style,
+        fixedColor: !cards[id].fixedColor,
+        value: cards[id].value,
+      },
+      ...cards.slice(id + 1)
+    ]);
   };
 
-  const handleChange = (id: number) => (event: ChangeEvent<HTMLInputElement>) => {
+  const changeTextValue = (id: number) => (event: ChangeEvent<HTMLInputElement>) => {
     setCards([
       ...cards.slice(0, id),
       {
@@ -126,6 +117,15 @@ const CardList = ({ cards, setCards }: Props) => {
     ]);
   };
 
+  const transformColor = (id: number, data: DraggableData) => {
+    const colorKey = Math.abs(Math.ceil((data.x + data.y) / 50 % 18));
+    const color = colorList[colorKey];
+    const styles = {
+      backgroundColor: color,
+    };
+    return styles;
+  };
+
   return (
     <div className="center">
       {cards.map(card => (
@@ -133,7 +133,7 @@ const CardList = ({ cards, setCards }: Props) => {
           <div key={card.id} className="paper" style={card.style}>
             <AntSwitch
               checked={card.fixedColor}
-              onChange={handleColor(card.id)}
+              onChange={toggleFixedColor(card.id)}
               name="colorSwitch"
             />
             <InputBase
@@ -144,7 +144,7 @@ const CardList = ({ cards, setCards }: Props) => {
               rows={4}
               placeholder="input idea"
               value={card.value}
-              onChange={handleChange(card.id)}
+              onChange={changeTextValue(card.id)}
             />
           </div>
         </Draggable>
