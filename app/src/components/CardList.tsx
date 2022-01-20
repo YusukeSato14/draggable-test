@@ -9,10 +9,6 @@ type Props = {
 
 type Card = {
   id: number;
-  deltaPosition: {
-    x: number,
-    y: number,
-  }
   style: {
     backgroundColor: string;
   };
@@ -87,7 +83,6 @@ const CardList = ({ cards, setCards }: Props) => {
       ...cards.slice(0, id),
       {
         ...cards[id],
-        deltaPosition: cards[id].deltaPosition,
         style: cards[id].style,
         fixedColor: !cards[id].fixedColor,
         value: cards[id].value,
@@ -96,18 +91,13 @@ const CardList = ({ cards, setCards }: Props) => {
     ]);
   };
 
-  const handleDrag = (id: number) => (e: DraggableEvent, ui: DraggableData) => {
-    const styles = cards[id].fixedColor ? cards[id].style : transformColor(id, cards[id].deltaPosition.x, cards[id].deltaPosition.y);
+  const handleDrag = (id: number) => (e: DraggableEvent, data: DraggableData) => {
+    const styles = cards[id].fixedColor ? cards[id].style : transformColor(id, data);
 
-    let { x, y } = cards[id].deltaPosition;
     setCards([
       ...cards.slice(0, id),
       {
         ...cards[id],
-        deltaPosition: {
-          x: x + ui.deltaX,
-          y: y + ui.deltaY,
-        },
         style: styles,
         value: cards[id].value,
       },
@@ -115,8 +105,8 @@ const CardList = ({ cards, setCards }: Props) => {
     ]);
   };
 
-  const transformColor = (id: number, x: number, y: number) => {
-    const colorKey = Math.abs(Math.ceil((x + y) / 50 % 18));
+  const transformColor = (id: number, data: DraggableData) => {
+    const colorKey = Math.abs(Math.ceil((data.x + data.y) / 50 % 18));
     const color = colorList[colorKey];
     const styles = {
       backgroundColor: color,
@@ -129,7 +119,6 @@ const CardList = ({ cards, setCards }: Props) => {
       ...cards.slice(0, id),
       {
         ...cards[id],
-        deltaPosition: cards[id].deltaPosition,
         style: cards[id].style,
         value: event.target.value,
       },

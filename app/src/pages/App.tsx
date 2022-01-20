@@ -6,10 +6,6 @@ import CardList, { colorList } from '../components/CardList';
 function App() {
   const initialCardState = {
     id: 0,
-    deltaPosition: {
-      x: 0,
-      y: 0,
-    },
     style: { backgroundColor: colorList[0] },
     fixedColor: false,
     value: '',
@@ -20,10 +16,6 @@ function App() {
       ...cards,
       {
         id: cards.length,
-        deltaPosition: {
-          x: 0,
-          y: 0,
-        },
         style: { backgroundColor: colorList[cards.length % 18] },
         fixedColor: false,
         value: '',
