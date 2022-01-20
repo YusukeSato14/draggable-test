@@ -79,13 +79,17 @@ const AntSwitch = withStyles((theme: Theme) =>
 
 const CardList = ({ cards, setCards }: Props) => {
   const handleDrag = (id: number) => (e: DraggableEvent, data: DraggableData) => {
-    const styles = cards[id].isFixedColor ? cards[id].style : transformColor(id, data);
+    const color = cards[id].isFixedColor ? cards[id].style.backgroundColor : transformColor(id, data);
+    // 処理軽減のため色変更なしならstateいじらない
+    if (color === cards[id].style.backgroundColor) return;
 
     setCards([
       ...cards.slice(0, id),
       {
         ...cards[id],
-        style: styles,
+        style: {
+          backgroundColor: color,
+        },
         value: cards[id].value,
       },
       ...cards.slice(id + 1)
@@ -120,10 +124,7 @@ const CardList = ({ cards, setCards }: Props) => {
   const transformColor = (id: number, data: DraggableData) => {
     const colorKey = Math.abs(Math.ceil((data.x + data.y) / 50 % 18));
     const color = colorList[colorKey];
-    const styles = {
-      backgroundColor: color,
-    };
-    return styles;
+    return color;
   };
 
   return (
