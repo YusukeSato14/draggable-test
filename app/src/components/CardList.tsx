@@ -122,7 +122,7 @@ const CardList = ({ cards, setCards }: Props) => {
   };
 
   const transformColor = (id: number, data: DraggableData) => {
-    const colorKey = Math.abs(Math.ceil((data.x + data.y) / 50 % 18));
+    const colorKey = Math.floor((Math.atan2(data.y, data.x) * (180 / Math.PI) + 180) * 19 / 361);
     const color = colorList[colorKey];
     return color;
   };
