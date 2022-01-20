@@ -1,5 +1,5 @@
 import { createStyles, InputBase, Switch, Theme, withStyles } from '@material-ui/core';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent } from 'react';
 import Draggable, { DraggableData, DraggableEvent } from 'react-draggable';
 
 type Props = {
