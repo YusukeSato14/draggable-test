@@ -47,7 +47,7 @@
   cursor: move;
 }
 
-.button {
+.add-button {
   float: right;
   margin:15px;
   border: 2px dashed #F7DC6F;
@@ -55,6 +55,11 @@
   border-radius: 7px;
   height: 30px;
   width: 70px;
+}
+
+.delete-button {
+  padding: 0 !important;
+  float:left;
 }
 
 .center {

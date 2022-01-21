@@ -24,7 +24,7 @@ function App() {
   };
   return (
     <div className="App">
-      <button className="button" onClick={addCard}>add</button>
+      <button className="add-button" onClick={addCard}>add</button>
       <CardList cards={cards} setCards={setCards} />
     </div>
   );

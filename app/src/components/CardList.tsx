@@ -1,4 +1,5 @@
-import { createStyles, InputBase, Switch, Theme, withStyles } from '@material-ui/core';
+import { createStyles, IconButton, InputBase, Switch, Theme, withStyles } from '@material-ui/core';
+import DeleteIcon from '@material-ui/icons/Delete';
 import { ChangeEvent } from 'react';
 import Draggable, { DraggableData, DraggableEvent } from 'react-draggable';
 
@@ -132,6 +133,9 @@ const CardList = ({ cards, setCards }: Props) => {
       {cards.map(card => (
         <Draggable bounds="body" onDrag={handleDrag(card.id)} key={card.id}>
           <div key={card.id} className="paper" style={card.style}>
+            <IconButton aria-label="delete" className="delete-button">
+              <DeleteIcon fontSize="small" />
+            </IconButton>
             <AntSwitch
               checked={card.isFixedColor}
               onChange={toggleFixedColor(card.id)}
