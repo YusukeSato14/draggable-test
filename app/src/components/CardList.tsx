@@ -137,7 +137,7 @@ const CardList = ({ cards, setCards }: Props) => {
   };
 
   const getCardsIndex = (card: Card) => {
-    const cardElement = cards.find(element => element.id == card.id)!;
+    const cardElement = cards.find(element => element.id === card.id)!;
     const cardsIndex = cards.indexOf(cardElement);
 
     return cardsIndex;
