@@ -79,48 +79,69 @@ const AntSwitch = withStyles((theme: Theme) =>
 )(Switch);
 
 const CardList = ({ cards, setCards }: Props) => {
-  const handleDrag = (id: number) => (e: DraggableEvent, data: DraggableData) => {
-    const color = cards[id].isFixedColor ? cards[id].style.backgroundColor : transformColor(id, data);
+  const handleDrag = (card: Card) => (e: DraggableEvent, data: DraggableData) => {
+    const color = card.isFixedColor ? card.style.backgroundColor : transformColor(card.id, data);
     // 処理軽減のため色変更なしならstateいじらない
-    if (color === cards[id].style.backgroundColor) return;
+    if (color === card.style.backgroundColor) return;
+    const cardsIndex = getCardsIndex(card);
 
     setCards([
-      ...cards.slice(0, id),
+      ...cards.slice(0, cardsIndex),
       {
-        ...cards[id],
+        ...card,
         style: {
           backgroundColor: color,
         },
-        value: cards[id].value,
+        value: card.value,
       },
-      ...cards.slice(id + 1)
+      ...cards.slice(cardsIndex + 1)
     ]);
   };
 
-  const toggleFixedColor = (id: number) => (event: ChangeEvent<HTMLInputElement>) => {
+  const toggleFixedColor = (card: Card) => (event: ChangeEvent<HTMLInputElement>) => {
+    const cardsIndex = getCardsIndex(card);
+
     setCards([
-      ...cards.slice(0, id),
+      ...cards.slice(0, cardsIndex),
       {
-        ...cards[id],
-        style: cards[id].style,
-        isFixedColor: !cards[id].isFixedColor,
-        value: cards[id].value,
+        ...card,
+        style: card.style,
+        isFixedColor: !card.isFixedColor,
+        value: card.value,
       },
-      ...cards.slice(id + 1)
+      ...cards.slice(cardsIndex + 1)
     ]);
   };
 
-  const changeTextValue = (id: number) => (event: ChangeEvent<HTMLInputElement>) => {
+  const deleteCard = (card: Card) => {
+    const cardsIndex = getCardsIndex(card);
+
     setCards([
-      ...cards.slice(0, id),
+      ...cards.slice(0, cardsIndex),
+      ...cards.slice(cardsIndex + 1)
+    ]);
+  };
+
+  const changeTextValue = (card: Card) => (event: ChangeEvent<HTMLInputElement>) => {
+    const cardsIndex = getCardsIndex(card);
+
+    setCards([
+      ...cards.slice(0, cardsIndex),
       {
-        ...cards[id],
-        style: cards[id].style,
+        ...card,
+        style: card.style,
         value: event.target.value,
       },
-      ...cards.slice(id + 1)
+      ...cards.slice(cardsIndex + 1)
     ]);
   };
+
+  const getCardsIndex = (card: Card) => {
+    const cardElement = cards.find(element => element.id == card.id)!;
+    const cardsIndex = cards.indexOf(cardElement);
+
+    return cardsIndex;
+  }
 
   const transformColor = (id: number, data: DraggableData) => {
     const colorKey = Math.floor((Math.atan2(data.y, data.x) * (180 / Math.PI) + 180) * 19 / 361);
@@ -131,14 +152,14 @@ const CardList = ({ cards, setCards }: Props) => {
   return (
     <div className="center">
       {cards.map(card => (
-        <Draggable bounds="body" onDrag={handleDrag(card.id)} key={card.id}>
+        <Draggable bounds="body" onDrag={handleDrag(card)} key={card.id}>
           <div key={card.id} className="paper" style={card.style}>
-            <IconButton aria-label="delete" className="delete-button">
+            <IconButton aria-label="delete" className="delete-button" onClick={() => deleteCard(card)} name="deleteButton">
               <DeleteIcon fontSize="small" />
             </IconButton>
             <AntSwitch
               checked={card.isFixedColor}
-              onChange={toggleFixedColor(card.id)}
+              onChange={toggleFixedColor(card)}
               name="colorSwitch"
             />
             <InputBase
@@ -149,7 +170,7 @@ const CardList = ({ cards, setCards }: Props) => {
               rows={4}
               placeholder="input idea"
               value={card.value}
-              onChange={changeTextValue(card.id)}
+              onChange={changeTextValue(card)}
             />
           </div>
         </Draggable>
