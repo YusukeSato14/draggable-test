@@ -18,7 +18,6 @@ function App() {
   const addCard: MouseEventHandler = () => {
     const newCardId = cardId + 1;
     setCardId(newCardId);
-    console.log(newCardId);
     setCards([
       ...cards,
       {
