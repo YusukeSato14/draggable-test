@@ -80,7 +80,7 @@ const AntSwitch = withStyles((theme: Theme) =>
 
 const CardList = ({ cards, setCards }: Props) => {
   const handleDrag = (card: Card) => (e: DraggableEvent, data: DraggableData) => {
-    const color = card.isFixedColor ? card.style.backgroundColor : transformColor(card.id, data);
+    const color = card.isFixedColor ? card.style.backgroundColor : transformColor(data);
     // 処理軽減のため色変更なしならstateいじらない
     if (color === card.style.backgroundColor) return;
     const cardsIndex = getCardsIndex(card);
@@ -143,7 +143,7 @@ const CardList = ({ cards, setCards }: Props) => {
     return cardsIndex;
   }
 
-  const transformColor = (id: number, data: DraggableData) => {
+  const transformColor = (data: DraggableData) => {
     const colorKey = Math.floor((Math.atan2(data.y, data.x) * (180 / Math.PI) + 180) * 19 / 361);
     const color = colorList[colorKey];
     return color;
