@@ -1,7 +1,8 @@
 import { MouseEventHandler, useState } from 'react';
 
 import '../assets/App.css';
-import CardList, { colorList } from '../components/CardList';
+import CardList from '../components/CardList';
+import { colorList } from '../components/DraggableCard';
 import Header from '../components/Header';
 
 function App() {
