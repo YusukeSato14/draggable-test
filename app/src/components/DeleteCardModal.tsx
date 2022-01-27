@@ -7,7 +7,7 @@ type Props = {
   cards: Card[],
   deleteCardId: number,
   setDeleteCardId: React.Dispatch<React.SetStateAction<number>>,
-  deleteCard: Function,
+  deleteCard: VoidFunction,
 };
 
 const DeleteCardModal = ({ cards, deleteCardId, setDeleteCardId, deleteCard }: Props) => {
