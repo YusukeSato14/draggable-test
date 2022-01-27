@@ -1,4 +1,4 @@
-import { MouseEventHandler, useState } from 'react';
+import { useState } from 'react';
 
 import '../assets/App.css';
 import CardList from '../components/CardList';
