@@ -1,4 +1,5 @@
 import { MouseEventHandler } from "react";
+
 import { Card, colorList } from "./DraggableCard";
 
 type Props = {
@@ -26,7 +27,7 @@ const Header = ({ cardId, setCardId, cards, setCards }: Props) => {
 
   return (
     <button className="add-button" onClick={addCard}>add</button>
-  )
-}
+  );
+};
 
 export default Header;

@@ -4,8 +4,8 @@ import DeleteCardModal from './DeleteCardModal';
 import DraggableCard, { Card, SetCards } from './DraggableCard';
 
 type Props = {
-  cards: Card[];
-  setCards: SetCards;
+  cards: Card[],
+  setCards: SetCards,
 };
 
 const CardList = ({ cards, setCards }: Props) => {

@@ -1,14 +1,14 @@
-import { createStyles, IconButton, InputBase, Switch, Theme, withStyles } from "@material-ui/core"
+import { createStyles, IconButton, InputBase, Switch, Theme, withStyles } from "@material-ui/core";
 import DeleteIcon from '@material-ui/icons/Delete';
 import React, { ChangeEvent } from "react";
-import Draggable, { DraggableData, DraggableEvent } from "react-draggable"
+import Draggable, { DraggableData, DraggableEvent } from "react-draggable";
 
 type Props = {
-  card: Card;
-  cards: Card[];
-  setCards: SetCards;
-  setDeleteCardId: React.Dispatch<React.SetStateAction<number>>;
-  getCardsIndex: Function;
+  card: Card,
+  cards: Card[],
+  setCards: SetCards,
+  setDeleteCardId: React.Dispatch<React.SetStateAction<number>>,
+  getCardsIndex: Function,
 };
 
 export type Card = {
@@ -18,9 +18,9 @@ export type Card = {
   };
   isFixedColor: boolean;
   value: string;
-}
+};
 
-export type SetCards = React.Dispatch<React.SetStateAction<Card[]>>
+export type SetCards = React.Dispatch<React.SetStateAction<Card[]>>;
 
 const AntSwitch = withStyles((theme: Theme) =>
   createStyles({
@@ -162,6 +162,6 @@ const DraggableCard = ({ card, cards, setCards, setDeleteCardId, getCardsIndex }
       </Draggable>
     </div>
   );
-}
+};
 
 export default DraggableCard;
