@@ -1,3 +1,6 @@
+import { useState } from 'react';
+
+import DeleteCardModal from './DeleteCardModal';
 import DraggableCard, { Card, SetCards } from './DraggableCard';
 
 type Props = {
@@ -6,11 +9,31 @@ type Props = {
 };
 
 const CardList = ({ cards, setCards }: Props) => {
+  const [deleteCardId, setDeleteCardId] = useState(-1);
+
+  const deleteCard = () => {
+    const deleteCardIndex = getCardsIndex(deleteCardId);
+
+    setCards([
+      ...cards.slice(0, deleteCardIndex),
+      ...cards.slice(deleteCardIndex + 1)
+    ]);
+    setDeleteCardId(-1);
+  };
+
+  const getCardsIndex = (id: number) => {
+    const cardElement = cards.find(element => element.id === id)!;
+    const cardsIndex = cards.indexOf(cardElement);
+
+    return cardsIndex;
+  }
+
   return (
     <div className="center">
       {cards.map(card => (
-        <DraggableCard card={card} cards={cards} setCards={setCards} />
+        <DraggableCard key={card.id} card={card} cards={cards} setCards={setCards} setDeleteCardId={setDeleteCardId} getCardsIndex={getCardsIndex} />
       ))}
+      <DeleteCardModal cards={cards} deleteCardId={deleteCardId} setDeleteCardId={setDeleteCardId} deleteCard={deleteCard} />
     </div>
   );
 };

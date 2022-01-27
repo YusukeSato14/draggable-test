@@ -1,12 +1,14 @@
 import { createStyles, IconButton, InputBase, Switch, Theme, withStyles } from "@material-ui/core"
 import DeleteIcon from '@material-ui/icons/Delete';
-import { ChangeEvent } from "react";
+import React, { ChangeEvent } from "react";
 import Draggable, { DraggableData, DraggableEvent } from "react-draggable"
 
 type Props = {
   card: Card;
   cards: Card[];
   setCards: SetCards;
+  setDeleteCardId: React.Dispatch<React.SetStateAction<number>>;
+  getCardsIndex: Function;
 };
 
 export type Card = {
@@ -79,12 +81,12 @@ export const colorList = [
   '#E57373',
 ];
 
-const DraggableCard = ({ card, cards, setCards }: Props) => {
+const DraggableCard = ({ card, cards, setCards, setDeleteCardId, getCardsIndex }: Props) => {
   const handleDrag = (card: Card) => (e: DraggableEvent, data: DraggableData) => {
     const color = card.isFixedColor ? card.style.backgroundColor : transformColor(data);
     // 処理軽減のため色変更なしならstateいじらない
     if (color === card.style.backgroundColor) return;
-    const cardsIndex = getCardsIndex(card);
+    const cardsIndex = getCardsIndex(card.id);
 
     setCards([
       ...cards.slice(0, cardsIndex),
@@ -100,7 +102,7 @@ const DraggableCard = ({ card, cards, setCards }: Props) => {
   };
 
   const toggleFixedColor = (card: Card) => (event: ChangeEvent<HTMLInputElement>) => {
-    const cardsIndex = getCardsIndex(card);
+    const cardsIndex = getCardsIndex(card.id);
 
     setCards([
       ...cards.slice(0, cardsIndex),
@@ -114,17 +116,8 @@ const DraggableCard = ({ card, cards, setCards }: Props) => {
     ]);
   };
 
-  const deleteCard = (card: Card) => {
-    const cardsIndex = getCardsIndex(card);
-
-    setCards([
-      ...cards.slice(0, cardsIndex),
-      ...cards.slice(cardsIndex + 1)
-    ]);
-  };
-
   const changeTextValue = (card: Card) => (event: ChangeEvent<HTMLInputElement>) => {
-    const cardsIndex = getCardsIndex(card);
+    const cardsIndex = getCardsIndex(card.id);
 
     setCards([
       ...cards.slice(0, cardsIndex),
@@ -137,13 +130,6 @@ const DraggableCard = ({ card, cards, setCards }: Props) => {
     ]);
   };
 
-  const getCardsIndex = (card: Card) => {
-    const cardElement = cards.find(element => element.id === card.id)!;
-    const cardsIndex = cards.indexOf(cardElement);
-
-    return cardsIndex;
-  }
-
   const transformColor = (data: DraggableData) => {
     const colorKey = Math.floor((Math.atan2(data.y, data.x) * (180 / Math.PI) + 180) * 19 / 361);
     const color = colorList[colorKey];
@@ -151,28 +137,30 @@ const DraggableCard = ({ card, cards, setCards }: Props) => {
   };
 
   return (
-    <Draggable bounds="body" onDrag={handleDrag(card)} key={card.id}>
-      <div key={card.id} className="paper" style={card.style}>
-        <IconButton aria-label="delete" className="delete-button" onClick={() => deleteCard(card)} name="deleteButton">
-          <DeleteIcon fontSize="small" />
-        </IconButton>
-        <AntSwitch
-          checked={card.isFixedColor}
-          onChange={toggleFixedColor(card)}
-          name="colorSwitch"
-        />
-        <InputBase
-          key={card.id}
-          className="paper"
-          style={card.style}
-          multiline
-          rows={4}
-          placeholder="input idea"
-          value={card.value}
-          onChange={changeTextValue(card)}
-        />
-      </div>
-    </Draggable>
+    <div>
+      <Draggable bounds="body" onDrag={handleDrag(card)} key={card.id}>
+        <div key={card.id} className="paper" style={card.style}>
+          <IconButton aria-label="delete" className="delete-button" onClick={() => setDeleteCardId(card.id)} name="deleteButton">
+            <DeleteIcon fontSize="small" />
+          </IconButton>
+          <AntSwitch
+            checked={card.isFixedColor}
+            onChange={toggleFixedColor(card)}
+            name="colorSwitch"
+          />
+          <InputBase
+            key={card.id}
+            className="paper"
+            style={card.style}
+            multiline
+            rows={4}
+            placeholder="input idea"
+            value={card.value}
+            onChange={changeTextValue(card)}
+          />
+        </div>
+      </Draggable>
+    </div>
   );
 }
 
