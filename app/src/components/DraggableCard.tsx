@@ -12,12 +12,12 @@ type Props = {
 };
 
 export type Card = {
-  id: number;
+  id: number,
   style: {
-    backgroundColor: string;
-  };
-  isFixedColor: boolean;
-  value: string;
+    backgroundColor: string,
+  },
+  isFixedColor: boolean,
+  value: string,
 };
 
 export type SetCards = React.Dispatch<React.SetStateAction<Card[]>>;
