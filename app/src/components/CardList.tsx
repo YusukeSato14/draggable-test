@@ -6,9 +6,11 @@ import DraggableCard, { Card, SetCards } from './DraggableCard';
 type Props = {
   cards: Card[],
   setCards: SetCards,
+  zIndex: number,
+  setZIndex: React.Dispatch<React.SetStateAction<number>>,
 };
 
-const CardList = ({ cards, setCards }: Props) => {
+const CardList = ({ cards, setCards, zIndex, setZIndex }: Props) => {
   const [deleteCardId, setDeleteCardId] = useState(-1);
 
   const deleteCard = () => {
@@ -31,7 +33,7 @@ const CardList = ({ cards, setCards }: Props) => {
   return (
     <div className="center">
       {cards.map(card => (
-        <DraggableCard key={card.id} card={card} cards={cards} setCards={setCards} setDeleteCardId={setDeleteCardId} getCardsIndex={getCardsIndex} />
+        <DraggableCard key={card.id} card={card} cards={cards} setCards={setCards} setDeleteCardId={setDeleteCardId} getCardsIndex={getCardsIndex} zIndex={zIndex} setZIndex={setZIndex} />
       ))}
       <DeleteCardModal cards={cards} deleteCardId={deleteCardId} setDeleteCardId={setDeleteCardId} deleteCard={deleteCard} />
     </div>

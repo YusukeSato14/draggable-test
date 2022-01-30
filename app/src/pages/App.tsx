@@ -9,9 +9,14 @@ function App() {
   // 追加・削除するにあたりidは別管理
   const [cardId, setCardId] = useState(0);
 
+  const [zIndex, setZIndex] = useState(0);
+
   const initialCardState = {
     id: cardId,
-    style: { backgroundColor: colorList[0] },
+    style: {
+      backgroundColor: colorList[0],
+      zIndex: zIndex,
+    },
     isFixedColor: false,
     value: '',
   };
@@ -19,8 +24,8 @@ function App() {
 
   return (
     <div className="App">
-      <Header cardId={cardId} setCardId={setCardId} cards={cards} setCards={setCards} />
-      <CardList cards={cards} setCards={setCards} />
+      <Header cardId={cardId} setCardId={setCardId} cards={cards} setCards={setCards} zIndex={zIndex} setZIndex={setZIndex} />
+      <CardList cards={cards} setCards={setCards} zIndex={zIndex} setZIndex={setZIndex} />
     </div>
   );
 };

@@ -9,12 +9,15 @@ type Props = {
   setCards: SetCards,
   setDeleteCardId: React.Dispatch<React.SetStateAction<number>>,
   getCardsIndex: Function,
+  zIndex: number,
+  setZIndex: React.Dispatch<React.SetStateAction<number>>,
 };
 
 export type Card = {
   id: number,
   style: {
     backgroundColor: string,
+    zIndex: number,
   },
   isFixedColor: boolean,
   value: string,
@@ -81,8 +84,27 @@ export const colorList = [
   '#E57373',
 ];
 
-const DraggableCard = ({ card, cards, setCards, setDeleteCardId, getCardsIndex }: Props) => {
-  const handleDrag = (card: Card) => (e: DraggableEvent, data: DraggableData) => {
+const DraggableCard = ({ card, cards, setCards, setDeleteCardId, getCardsIndex, zIndex, setZIndex }: Props) => {
+  const onStart = () => {
+    setZIndex(zIndex + 1);
+
+    const cardsIndex = getCardsIndex(card.id);
+
+    setCards([
+      ...cards.slice(0, cardsIndex),
+      {
+        ...card,
+        style: {
+          backgroundColor: card.style.backgroundColor,
+          zIndex: zIndex,
+        },
+        value: card.value,
+      },
+      ...cards.slice(cardsIndex + 1)
+    ]);
+  };
+
+  const onDrag = (card: Card) => (e: DraggableEvent, data: DraggableData) => {
     const color = card.isFixedColor ? card.style.backgroundColor : transformColor(data);
     // 処理軽減のため色変更なしならstateいじらない
     if (color === card.style.backgroundColor) return;
@@ -94,6 +116,7 @@ const DraggableCard = ({ card, cards, setCards, setDeleteCardId, getCardsIndex }
         ...card,
         style: {
           backgroundColor: color,
+          zIndex: zIndex,
         },
         value: card.value,
       },
@@ -138,7 +161,7 @@ const DraggableCard = ({ card, cards, setCards, setDeleteCardId, getCardsIndex }
 
   return (
     <div>
-      <Draggable bounds="body" onDrag={handleDrag(card)} key={card.id}>
+      <Draggable bounds="body" onStart={onStart} onDrag={onDrag(card)} key={card.id}>
         <div key={card.id} className="paper" style={card.style}>
           <IconButton aria-label="delete" className="delete-button" onClick={() => setDeleteCardId(card.id)} name="deleteButton">
             <DeleteIcon fontSize="small" />
