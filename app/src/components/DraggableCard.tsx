@@ -85,8 +85,10 @@ export const colorList = [
 ];
 
 const DraggableCard = ({ card, cards, setCards, setDeleteCardId, getCardsIndex, zIndex, setZIndex }: Props) => {
-  const onStart = () => {
-    setZIndex(zIndex + 1);
+  const onStart = (card: Card) => (event: DraggableEvent) => {
+    if (zIndex === card.style.zIndex) return;
+    const newZIndex = zIndex + 1;
+    setZIndex(newZIndex);
 
     const cardsIndex = getCardsIndex(card.id);
 
@@ -96,7 +98,7 @@ const DraggableCard = ({ card, cards, setCards, setDeleteCardId, getCardsIndex, 
         ...card,
         style: {
           backgroundColor: card.style.backgroundColor,
-          zIndex: zIndex,
+          zIndex: newZIndex,
         },
         value: card.value,
       },
@@ -161,7 +163,7 @@ const DraggableCard = ({ card, cards, setCards, setDeleteCardId, getCardsIndex, 
 
   return (
     <div>
-      <Draggable bounds="body" onStart={onStart} onDrag={onDrag(card)} key={card.id}>
+      <Draggable bounds="body" onStart={onStart(card)} onDrag={onDrag(card)} key={card.id}>
         <div key={card.id} className="card" style={card.style}>
           <IconButton aria-label="delete" className="delete-button" onClick={() => setDeleteCardId(card.id)} name="deleteButton">
             <DeleteIcon fontSize="small" />
@@ -174,6 +176,7 @@ const DraggableCard = ({ card, cards, setCards, setDeleteCardId, getCardsIndex, 
           <InputBase
             key={card.id}
             className="card-textarea"
+            autoFocus={true}
             style={card.style}
             multiline
             rows={4}

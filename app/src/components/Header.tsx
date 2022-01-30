@@ -16,7 +16,8 @@ const Header = ({ cardId, setCardId, cards, setCards, zIndex, setZIndex }: Props
     const newCardId = cardId + 1;
     setCardId(newCardId);
 
-    setZIndex(zIndex + 1);
+    const newZIndex = zIndex + 1;
+    setZIndex(newZIndex);
 
     setCards([
       ...cards,
@@ -24,7 +25,7 @@ const Header = ({ cardId, setCardId, cards, setCards, zIndex, setZIndex }: Props
         id: newCardId,
         style: {
           backgroundColor: colorList[newCardId % 18],
-          zIndex: zIndex,
+          zIndex: newZIndex,
         },
         isFixedColor: false,
         value: '',
