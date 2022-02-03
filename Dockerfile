@@ -1,2 +1,4 @@
-FROM node:14.11-alpine3.10
-WORKDIR /usr/src/app
+FROM node:14.15-slim
+WORKDIR /usr/src/app/app
+ADD app/package*.json ./
+RUN yarn install
