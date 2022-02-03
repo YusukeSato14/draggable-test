@@ -9,6 +9,6 @@ services:
     container_name: node
     volumes:
       - .:/workspace:cached
-      - /workspace/app/node_modules
+    command: sh -c "cd app && yarn start"
     ports:
       - "3000:3000"
