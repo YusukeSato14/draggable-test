@@ -1,7 +1,7 @@
 import { Button } from "@material-ui/core";
 import React from "react";
 
-import { Card } from "./DraggableCard";
+import { Card } from "./CardContent";
 
 type Props = {
   cards: Card[],
