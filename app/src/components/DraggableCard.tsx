@@ -7,12 +7,11 @@ import { Card } from "./CardContent";
 
 type Props = {
   card: Card,
-  cards: Card[],
-  setCards: SetCards,
   setDeleteCardId: React.Dispatch<React.SetStateAction<number>>,
-  getCardsIndex: Function,
-  zIndex: number,
-  setZIndex: React.Dispatch<React.SetStateAction<number>>,
+  onStart: Function,
+  onDrag: Function,
+  toggleFixedColor: Function,
+  changeTextValue: Function,
 };
 
 export type SetCards = React.Dispatch<React.SetStateAction<Card[]>>;
@@ -76,83 +75,7 @@ export const colorList = [
   '#E57373',
 ];
 
-const DraggableCard = ({ card, cards, setCards, setDeleteCardId, getCardsIndex, zIndex, setZIndex }: Props) => {
-  const onStart = (card: Card) => (event: DraggableEvent) => {
-    if (zIndex === card.style.zIndex) return;
-    const newZIndex = zIndex + 1;
-    setZIndex(newZIndex);
-
-    const cardsIndex = getCardsIndex(card.id);
-
-    setCards([
-      ...cards.slice(0, cardsIndex),
-      {
-        ...card,
-        style: {
-          backgroundColor: card.style.backgroundColor,
-          zIndex: newZIndex,
-        },
-        value: card.value,
-      },
-      ...cards.slice(cardsIndex + 1)
-    ]);
-  };
-
-  const onDrag = (card: Card) => (e: DraggableEvent, data: DraggableData) => {
-    const color = card.isFixedColor ? card.style.backgroundColor : transformColor(data);
-    // 処理軽減のため色変更なしならstateいじらない
-    if (color === card.style.backgroundColor) return;
-    const cardsIndex = getCardsIndex(card.id);
-
-    setCards([
-      ...cards.slice(0, cardsIndex),
-      {
-        ...card,
-        style: {
-          backgroundColor: color,
-          zIndex: zIndex,
-        },
-        value: card.value,
-      },
-      ...cards.slice(cardsIndex + 1)
-    ]);
-  };
-
-  const toggleFixedColor = (card: Card) => (event: ChangeEvent<HTMLInputElement>) => {
-    const cardsIndex = getCardsIndex(card.id);
-
-    setCards([
-      ...cards.slice(0, cardsIndex),
-      {
-        ...card,
-        style: card.style,
-        isFixedColor: !card.isFixedColor,
-        value: card.value,
-      },
-      ...cards.slice(cardsIndex + 1)
-    ]);
-  };
-
-  const changeTextValue = (card: Card) => (event: ChangeEvent<HTMLInputElement>) => {
-    const cardsIndex = getCardsIndex(card.id);
-
-    setCards([
-      ...cards.slice(0, cardsIndex),
-      {
-        ...card,
-        style: card.style,
-        value: event.target.value,
-      },
-      ...cards.slice(cardsIndex + 1)
-    ]);
-  };
-
-  const transformColor = (data: DraggableData) => {
-    const colorKey = Math.floor((Math.atan2(data.y, data.x) * (180 / Math.PI) + 180) * 19 / 361);
-    const color = colorList[colorKey];
-    return color;
-  };
-
+const DraggableCard = ({ card, setDeleteCardId, onStart, onDrag, toggleFixedColor, changeTextValue }: Props) => {
   return (
     <>
       <Draggable bounds="body" onStart={onStart(card)} onDrag={onDrag(card)}>
