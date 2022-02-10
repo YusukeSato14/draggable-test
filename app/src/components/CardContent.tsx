@@ -17,9 +17,9 @@ export type Card = {
 // Organismコンポーネント
 export const CardContent = () => {
   // 追加・削除するにあたりidは別管理
-  const [cardId, setCardId] = useState(0);
+  const [cardId, setCardId] = useState<number>(0);
 
-  const [zIndex, setZIndex] = useState(0);
+  const [zIndex, setZIndex] = useState<number>(0);
 
   const initialCardState = {
     id: cardId,
