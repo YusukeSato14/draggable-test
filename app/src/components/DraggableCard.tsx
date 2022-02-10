@@ -3,6 +3,8 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import React, { ChangeEvent } from "react";
 import Draggable, { DraggableData, DraggableEvent } from "react-draggable";
 
+import { Card } from "./CardContent";
+
 type Props = {
   card: Card,
   cards: Card[],
@@ -11,16 +13,6 @@ type Props = {
   getCardsIndex: Function,
   zIndex: number,
   setZIndex: React.Dispatch<React.SetStateAction<number>>,
-};
-
-export type Card = {
-  id: number,
-  style: {
-    backgroundColor: string,
-    zIndex: number,
-  },
-  isFixedColor: boolean,
-  value: string,
 };
 
 export type SetCards = React.Dispatch<React.SetStateAction<Card[]>>;

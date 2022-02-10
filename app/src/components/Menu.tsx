@@ -1,6 +1,7 @@
 import { MouseEventHandler } from "react";
 
-import { Card, colorList } from "./DraggableCard";
+import { Card } from "./CardContent";
+import { colorList } from "./DraggableCard";
 
 type Props = {
   cardId: number,

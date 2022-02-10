@@ -1,7 +1,8 @@
 import { useState } from 'react';
 
+import { Card } from './CardContent';
 import DeleteCardModal from './DeleteCardModal';
-import DraggableCard, { Card, SetCards } from './DraggableCard';
+import DraggableCard, { SetCards } from './DraggableCard';
 
 type Props = {
   cards: Card[],

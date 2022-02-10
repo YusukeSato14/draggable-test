@@ -4,6 +4,16 @@ import CardList from '../components/CardList';
 import { colorList } from '../components/DraggableCard';
 import Menu from '../components/Menu';
 
+export type Card = {
+  id: number,
+  style: {
+    backgroundColor: string,
+    zIndex: number,
+  },
+  isFixedColor: boolean,
+  value: string,
+};
+
 // Organismコンポーネント
 export const CardContent = () => {
   // 追加・削除するにあたりidは別管理
@@ -20,7 +30,7 @@ export const CardContent = () => {
     isFixedColor: false,
     value: '',
   };
-  const [cards, setCards] = useState([initialCardState]);
+  const [cards, setCards] = useState<Card[]>([initialCardState]);
 
   return (
     <>
