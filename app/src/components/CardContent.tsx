@@ -4,6 +4,7 @@ import { DraggableData, DraggableEvent } from 'react-draggable';
 import CardList from '../components/CardList';
 import { colorList } from '../components/DraggableCard';
 import Menu from '../components/Menu';
+import DeleteCardModal from './DeleteCardModal';
 
 export type Card = {
   id: number,
@@ -156,14 +157,13 @@ export const CardContent = () => {
       <Menu addCard={addCard} />
       <CardList
         cards={cards}
-        deleteCardId={deleteCardId}
         setDeleteCardId={setDeleteCardId}
         onStart={onStart}
         onDrag={onDrag}
         toggleFixedColor={toggleFixedColor}
         changeTextValue={changeTextValue}
-        deleteCard={deleteCard}
       />
+      <DeleteCardModal cards={cards} deleteCardId={deleteCardId} setDeleteCardId={setDeleteCardId} deleteCard={deleteCard} />
     </>
   );
 };
