@@ -1,9 +1,9 @@
 import { ChangeEvent, MouseEventHandler, useState } from 'react';
 import { DraggableData, DraggableEvent } from 'react-draggable';
 
-import CardList from '../components/CardList';
-import { colorList } from '../components/DraggableCard';
-import Menu from '../components/Menu';
+import CardList from './CardList';
+import { colorList } from './DraggableCard';
+import Menu from './Menu';
 import DeleteCardModal from './DeleteCardModal';
 
 export type Card = {

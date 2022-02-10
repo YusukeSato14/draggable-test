@@ -1,8 +1,5 @@
 import { MouseEventHandler } from "react";
 
-import { Card } from "./CardContent";
-import { colorList } from "./DraggableCard";
-
 type Props = {
   addCard: MouseEventHandler,
 }

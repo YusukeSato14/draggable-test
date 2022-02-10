@@ -1,7 +1,7 @@
 import { createStyles, IconButton, InputBase, Switch, Theme, withStyles } from "@material-ui/core";
 import DeleteIcon from '@material-ui/icons/Delete';
-import React, { ChangeEvent } from "react";
-import Draggable, { DraggableData, DraggableEvent } from "react-draggable";
+import React from "react";
+import Draggable from "react-draggable";
 
 import { Card } from "./CardContent";
 
@@ -13,8 +13,6 @@ type Props = {
   toggleFixedColor: Function,
   changeTextValue: Function,
 };
-
-export type SetCards = React.Dispatch<React.SetStateAction<Card[]>>;
 
 const AntSwitch = withStyles((theme: Theme) =>
   createStyles({
