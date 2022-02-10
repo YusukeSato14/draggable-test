@@ -11,7 +11,7 @@ type Props = {
   setZIndex: React.Dispatch<React.SetStateAction<number>>,
 }
 
-const Header = ({ cardId, setCardId, cards, setCards, zIndex, setZIndex }: Props) => {
+const Menu = ({ cardId, setCardId, cards, setCards, zIndex, setZIndex }: Props) => {
   const addCard: MouseEventHandler = () => {
     const newCardId = cardId + 1;
     setCardId(newCardId);
@@ -38,4 +38,4 @@ const Header = ({ cardId, setCardId, cards, setCards, zIndex, setZIndex }: Props
   );
 };
 
-export default Header;
+export default Menu;

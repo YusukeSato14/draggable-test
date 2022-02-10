@@ -3,7 +3,7 @@ import { useState } from 'react';
 import '../assets/App.css';
 import CardList from '../components/CardList';
 import { colorList } from '../components/DraggableCard';
-import Header from '../components/Header';
+import Menu from '../components/Menu';
 
 function App() {
   // 追加・削除するにあたりidは別管理
@@ -24,7 +24,7 @@ function App() {
 
   return (
     <div className="App">
-      <Header cardId={cardId} setCardId={setCardId} cards={cards} setCards={setCards} zIndex={zIndex} setZIndex={setZIndex} />
+      <Menu cardId={cardId} setCardId={setCardId} cards={cards} setCards={setCards} zIndex={zIndex} setZIndex={setZIndex} />
       <CardList cards={cards} setCards={setCards} zIndex={zIndex} setZIndex={setZIndex} />
     </div>
   );
