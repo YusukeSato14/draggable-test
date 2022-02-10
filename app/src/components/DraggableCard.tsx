@@ -163,8 +163,8 @@ const DraggableCard = ({ card, cards, setCards, setDeleteCardId, getCardsIndex, 
 
   return (
     <div>
-      <Draggable bounds="body" onStart={onStart(card)} onDrag={onDrag(card)} key={card.id}>
-        <div key={card.id} className="card" style={card.style}>
+      <Draggable bounds="body" onStart={onStart(card)} onDrag={onDrag(card)}>
+        <div className="card" style={card.style}>
           <IconButton aria-label="delete" className="delete-button" onClick={() => setDeleteCardId(card.id)} name="deleteButton">
             <DeleteIcon fontSize="small" />
           </IconButton>
@@ -174,7 +174,6 @@ const DraggableCard = ({ card, cards, setCards, setDeleteCardId, getCardsIndex, 
             name="colorSwitch"
           />
           <InputBase
-            key={card.id}
             className="card-textarea"
             autoFocus={true}
             style={card.style}
