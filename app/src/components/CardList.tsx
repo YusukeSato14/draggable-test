@@ -50,28 +50,6 @@ const AntSwitch = withStyles((theme: Theme) =>
   }),
 )(Switch);
 
-export const colorList = [
-  '#90A4AE',
-  '#E0E0E0',
-  '#A1887F',
-  '#FF8A65',
-  '#FFB74D',
-  '#FFD54F',
-  '#FFF176',
-  '#DCE775',
-  '#AED581',
-  '#81C784',
-  '#4DB6AC',
-  '#4DD0E1',
-  '#4FC3F7',
-  '#64B5F6',
-  '#7986CB',
-  '#9575CD',
-  '#BA68C8',
-  '#F06292',
-  '#E57373',
-];
-
 const CardList = ({ cards, setDeleteCardId, onStart, onDrag, toggleFixedColor, changeTextValue }: Props) => {
   return (
     <div className="center">
