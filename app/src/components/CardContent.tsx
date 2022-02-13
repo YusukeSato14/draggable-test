@@ -2,7 +2,7 @@ import { ChangeEvent, MouseEventHandler, useState } from 'react';
 import { DraggableData, DraggableEvent } from 'react-draggable';
 
 import CardList from './CardList';
-import { colorList } from './DraggableCard';
+import { colorList } from './CardList';
 import Menu from './Menu';
 import DeleteCardModal from './DeleteCardModal';
 
