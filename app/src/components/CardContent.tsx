@@ -2,8 +2,8 @@ import { ChangeEvent, MouseEventHandler, useState } from 'react';
 import { DraggableData, DraggableEvent } from 'react-draggable';
 
 import CardList from './CardList';
-import Menu from './Menu';
 import DeleteCardModal from './DeleteCardModal';
+import Menu from './Menu';
 
 export type Card = {
   id: number,
