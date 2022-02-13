@@ -1,5 +1,6 @@
 import { createStyles, IconButton, InputBase, Switch, Theme, withStyles } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
+import React from 'react';
 import Draggable from 'react-draggable';
 
 import { Card } from './CardContent';
@@ -54,7 +55,7 @@ const CardList = ({ cards, setDeleteCardId, onStart, onDrag, toggleFixedColor, c
   return (
     <div className="center">
       {cards.map(card => (
-        <>
+        <React.Fragment key={card.id}>
           <Draggable bounds="body" onStart={onStart(card)} onDrag={onDrag(card)}>
             <div className="card" style={card.style}>
               <IconButton aria-label="delete" className="delete-button" onClick={() => setDeleteCardId(card.id)} name="deleteButton">
@@ -77,7 +78,7 @@ const CardList = ({ cards, setDeleteCardId, onStart, onDrag, toggleFixedColor, c
               />
             </div>
           </Draggable>
-        </>
+        </React.Fragment>
       ))}
     </div>
   );
