@@ -1,4 +1,4 @@
-import { MouseEventHandler, useState } from 'react';
+import { MouseEventHandler, useCallback, useState } from 'react';
 
 import CardList from './CardList';
 import DeleteCardModal from './DeleteCardModal';
@@ -77,7 +77,7 @@ export const CardContent = () => {
     ]);
   };
 
-  const deleteCard = () => {
+  const deleteCard = useCallback(() => {
     const deleteCardIndex = getCardsIndex(deleteCardId);
 
     setCards([
@@ -85,7 +85,12 @@ export const CardContent = () => {
       ...cards.slice(deleteCardIndex + 1)
     ]);
     setDeleteCardId(-1);
-  };
+  }, [deleteCardId]);
+
+  const getDeleteCardElement = useCallback(() => {
+    const deleteCardElement = cards.find(element => element.id === deleteCardId)!;
+    return deleteCardElement;
+  }, [deleteCardId]);
 
   const getCardsIndex = (id: number) => {
     const cardElement = cards.find(element => element.id === id)!;
@@ -106,7 +111,7 @@ export const CardContent = () => {
         getCardsIndex={getCardsIndex}
       />
       <DeleteCardModal
-        cards={cards}
+        getDeleteCardElement={getDeleteCardElement}
         deleteCardId={deleteCardId}
         setDeleteCardId={setDeleteCardId}
         deleteCard={deleteCard}
