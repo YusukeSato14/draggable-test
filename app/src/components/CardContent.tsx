@@ -1,5 +1,4 @@
-import { ChangeEvent, MouseEventHandler, useState } from 'react';
-import { DraggableData, DraggableEvent } from 'react-draggable';
+import { MouseEventHandler, useState } from 'react';
 
 import CardList from './CardList';
 import DeleteCardModal from './DeleteCardModal';
@@ -88,89 +87,11 @@ export const CardContent = () => {
     setDeleteCardId(-1);
   };
 
-  // カードに触れた際に要素を最前面に出す。
-  const onStart = (card: Card) => (event: DraggableEvent) => {
-    if (zIndex === card.style.zIndex) return;
-    const newZIndex = zIndex + 1;
-    setZIndex(newZIndex);
-
-    const cardsIndex = getCardsIndex(card.id);
-
-    setCards([
-      ...cards.slice(0, cardsIndex),
-      {
-        ...card,
-        style: {
-          backgroundColor: card.style.backgroundColor,
-          zIndex: newZIndex,
-        },
-        value: card.value,
-      },
-      ...cards.slice(cardsIndex + 1)
-    ]);
-  };
-
-  // カードドラッグ中の変更
-  const onDrag = (card: Card) => (e: DraggableEvent, data: DraggableData) => {
-    const color = card.isFixedColor ? card.style.backgroundColor : transformColor(data);
-    // 処理軽減のため色変更なしならstateいじらない
-    if (color === card.style.backgroundColor) return;
-    const cardsIndex = getCardsIndex(card.id);
-
-    setCards([
-      ...cards.slice(0, cardsIndex),
-      {
-        ...card,
-        style: {
-          backgroundColor: color,
-          zIndex: zIndex,
-        },
-        value: card.value,
-      },
-      ...cards.slice(cardsIndex + 1)
-    ]);
-  };
-
-  const toggleFixedColor = (card: Card) => (event: ChangeEvent<HTMLInputElement>) => {
-    const cardsIndex = getCardsIndex(card.id);
-
-    setCards([
-      ...cards.slice(0, cardsIndex),
-      {
-        ...card,
-        style: card.style,
-        isFixedColor: !card.isFixedColor,
-        value: card.value,
-      },
-      ...cards.slice(cardsIndex + 1)
-    ]);
-  };
-
-  const changeTextValue = (card: Card) => (event: ChangeEvent<HTMLInputElement>) => {
-    const cardsIndex = getCardsIndex(card.id);
-
-    setCards([
-      ...cards.slice(0, cardsIndex),
-      {
-        ...card,
-        style: card.style,
-        value: event.target.value,
-      },
-      ...cards.slice(cardsIndex + 1)
-    ]);
-  };
-  
   const getCardsIndex = (id: number) => {
     const cardElement = cards.find(element => element.id === id)!;
     const cardsIndex = cards.indexOf(cardElement);
 
     return cardsIndex;
-  }
-
-  const transformColor = (data: DraggableData) => {
-    const colorKey = Math.floor((Math.atan2(data.y, data.x) * (180 / Math.PI) + 180) * 19 / 361);
-    const color = colorList[colorKey];
-    return color;
   };
 
   return (
@@ -178,11 +99,11 @@ export const CardContent = () => {
       <Menu addCard={addCard} />
       <CardList
         cards={cards}
+        setCards={setCards}
+        zIndex={zIndex}
+        setZIndex={setZIndex}
         setDeleteCardId={setDeleteCardId}
-        onStart={onStart}
-        onDrag={onDrag}
-        toggleFixedColor={toggleFixedColor}
-        changeTextValue={changeTextValue}
+        getCardsIndex={getCardsIndex}
       />
       <DeleteCardModal cards={cards} deleteCardId={deleteCardId} setDeleteCardId={setDeleteCardId} deleteCard={deleteCard} />
     </>
