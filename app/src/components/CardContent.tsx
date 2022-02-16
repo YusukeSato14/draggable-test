@@ -55,7 +55,7 @@ export const CardContent = () => {
   const [cards, setCards] = useState<Card[]>([initialCardState]);
 
   const [deleteCardId, setDeleteCardId] = useState(-1);
-  
+
   const addCard: MouseEventHandler = () => {
     const newCardId = cardId + 1;
     setCardId(newCardId);
@@ -105,7 +105,12 @@ export const CardContent = () => {
         setDeleteCardId={setDeleteCardId}
         getCardsIndex={getCardsIndex}
       />
-      <DeleteCardModal cards={cards} deleteCardId={deleteCardId} setDeleteCardId={setDeleteCardId} deleteCard={deleteCard} />
+      <DeleteCardModal
+        cards={cards}
+        deleteCardId={deleteCardId}
+        setDeleteCardId={setDeleteCardId}
+        deleteCard={deleteCard}
+      />
     </>
   );
 };
