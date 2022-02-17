@@ -1,12 +1,40 @@
+import { Button } from "@material-ui/core";
+import { styled } from "@material-ui/styles";
 import { MouseEventHandler } from "react";
 
 type Props = {
   addCard: MouseEventHandler,
-}
+};
+
+const AddButton = styled(Button)({
+  margin: '15px',
+  color: '#f0f0f0',
+  border: '2px dashed #FFD54F',
+  backgroundColor: '#4DB6AC',
+  borderRadius: '7px',
+  height: '30px',
+  width: '70px',
+  boxShadow: 'none',
+  '&:hover': {
+    backgroundColor: '#4DB6AC',
+    borderColor: '#FFB74D',
+    boxShadow: 'none',
+  },
+  '&:active': {
+    boxShadow: 'none',
+    backgroundColor: '#4DB6AC',
+    borderColor: '#4FC3F7',
+  },
+  '&:focus': {
+    boxShadow: '0 0 0 0.2rem rgba(0,123,255,.5)',
+  },
+});
 
 const Menu = ({ addCard }: Props) => {
   return (
-    <button className="add-button" onClick={addCard}>add</button>
+    <div className="menu">
+      <AddButton variant="contained" onClick={addCard}>add</AddButton>
+    </div>
   );
 };
 
