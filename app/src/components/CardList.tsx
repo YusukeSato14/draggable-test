@@ -134,7 +134,7 @@ const CardList = ({ cards, setCards, zIndex, setZIndex, setDeleteCardId, getCard
     <div className="center">
       {cards.map(card => (
         <React.Fragment key={card.id}>
-          <Draggable bounds="body" onStart={onStart(card)} onDrag={onDrag(card)}>
+          <Draggable bounds="parent" onStart={onStart(card)} onDrag={onDrag(card)}>
             <div className="card" style={card.style}>
               <IconButton aria-label="delete" className="delete-button" onClick={() => setDeleteCardId(card.id)} name="deleteButton">
                 <DeleteIcon fontSize="small" />

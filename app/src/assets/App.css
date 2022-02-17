@@ -36,7 +36,9 @@
 }
 
 .center {
-  height: 100%;
+  height: calc(100% - 64px);
+  position:relative;
+  top: 64px;
   display: flex;
   justify-content: center;
   align-items: center;
