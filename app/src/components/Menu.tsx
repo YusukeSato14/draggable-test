@@ -2,6 +2,9 @@ import { Button } from "@material-ui/core";
 import { styled } from "@material-ui/styles";
 import { MouseEventHandler } from "react";
 
+import LoginButton from "./LoginButton";
+import LogoutButton from "./LogoutButton";
+
 type Props = {
   addCard: MouseEventHandler,
 };
@@ -33,6 +36,8 @@ const AddButton = styled(Button)({
 const Menu = ({ addCard }: Props) => {
   return (
     <div className="menu">
+      <LoginButton />
+      <LogoutButton />
       <AddButton variant="contained" onClick={addCard}>add</AddButton>
     </div>
   );
