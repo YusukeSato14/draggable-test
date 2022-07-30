@@ -3,7 +3,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import React, { ChangeEvent } from 'react';
 import Draggable, { DraggableData, DraggableEvent } from 'react-draggable';
 
-import { Card, colorList } from './CardContent';
+import { Card, colorList } from '../functional/CardContent';
 
 type Props = {
   cards: Card[],

@@ -1,8 +1,8 @@
 import { MouseEventHandler, useCallback, useState } from 'react';
 
-import CardList from './CardList';
-import DeleteCardModal from './DeleteCardModal';
-import Menu from './Menu';
+import CardList from '../parts/CardList';
+import DeleteCardModal from '../parts/DeleteCardModal';
+import Menu from '../layout/Menu';
 
 export type Card = {
   id: number,

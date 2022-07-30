@@ -2,8 +2,8 @@ import { Button } from "@material-ui/core";
 import { styled } from "@material-ui/styles";
 import { MouseEventHandler } from "react";
 
-import LoginButton from "./LoginButton";
-import LogoutButton from "./LogoutButton";
+import LoginButton from "../elements/LoginButton";
+import LogoutButton from "../elements/LogoutButton";
 
 type Props = {
   addCard: MouseEventHandler,
