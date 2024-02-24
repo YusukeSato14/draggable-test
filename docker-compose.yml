@@ -10,7 +10,7 @@ services:
     volumes:
       - .:/workspace:cached
       - node_modules:/workspace/app/node_modules
-    command: sh -c "cd app && yarn start"
+    # command: sh -c "cd app && yarn run dev"
     ports:
       - "3000:3000"
 volumes:
