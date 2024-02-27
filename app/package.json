@@ -30,7 +30,7 @@
     "start": "next start",
     "test": "next test",
     "eject": "next eject",
-    "postinstall": "husky",
+    "prepare": "husky",
     "check-apply": "npx @biomejs/biome check --apply ."
   },
   "eslintConfig": {

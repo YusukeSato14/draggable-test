@@ -1,1 +1,1 @@
-lint-staged
+cd app && yarn lint-staged
