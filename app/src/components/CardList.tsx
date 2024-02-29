@@ -1,17 +1,24 @@
-import { createStyles, IconButton, InputBase, Switch, Theme, withStyles } from '@mui/material';
-import { Delete } from '@mui/icons-material'
-import React, { ChangeEvent } from 'react';
-import Draggable, { DraggableData, DraggableEvent } from 'react-draggable';
+import { Delete } from "@mui/icons-material";
+import {
+  IconButton,
+  InputBase,
+  Switch,
+  Theme,
+  createStyles,
+  withStyles,
+} from "@mui/material";
+import React, { ChangeEvent } from "react";
+import Draggable, { DraggableData, DraggableEvent } from "react-draggable";
 
-import { Card, colorList } from './CardContent';
+import { Card, colorList } from "./CardContent";
 
 type Props = {
-  cards: Card[],
-  setCards: React.Dispatch<React.SetStateAction<Card[]>>,
-  zIndex: number,
-  setZIndex: React.Dispatch<React.SetStateAction<number>>,
-  setDeleteCardId: React.Dispatch<React.SetStateAction<number>>,
-  getCardsIndex: Function,
+  cards: Card[];
+  setCards: React.Dispatch<React.SetStateAction<Card[]>>;
+  zIndex: number;
+  setZIndex: React.Dispatch<React.SetStateAction<number>>;
+  setDeleteCardId: React.Dispatch<React.SetStateAction<number>>;
+  getCardsIndex: (id: number) => number;
 };
 
 // const AntSwitch = withStyles((theme: Theme) =>
@@ -51,7 +58,14 @@ type Props = {
 //   }),
 // )(Switch);
 
-const CardList = ({ cards, setCards, zIndex, setZIndex, setDeleteCardId, getCardsIndex }: Props) => {
+const CardList = ({
+  cards,
+  setCards,
+  zIndex,
+  setZIndex,
+  setDeleteCardId,
+  getCardsIndex,
+}: Props) => {
   // カードに触れた際に要素を最前面に出す。
   const onStart = (card: Card) => (event: DraggableEvent) => {
     if (zIndex === card.style.zIndex) return;
@@ -70,13 +84,15 @@ const CardList = ({ cards, setCards, zIndex, setZIndex, setDeleteCardId, getCard
         },
         value: card.value,
       },
-      ...cards.slice(cardsIndex + 1)
+      ...cards.slice(cardsIndex + 1),
     ]);
   };
 
   // カードドラッグ中の変更
   const onDrag = (card: Card) => (e: DraggableEvent, data: DraggableData) => {
-    const color = card.isFixedColor ? card.style.backgroundColor : transformColor(data);
+    const color = card.isFixedColor
+      ? card.style.backgroundColor
+      : transformColor(data);
     // 処理軽減のため色変更なしならstateいじらない
     if (color === card.style.backgroundColor) return;
     const cardsIndex = getCardsIndex(card.id);
@@ -91,52 +107,65 @@ const CardList = ({ cards, setCards, zIndex, setZIndex, setDeleteCardId, getCard
         },
         value: card.value,
       },
-      ...cards.slice(cardsIndex + 1)
+      ...cards.slice(cardsIndex + 1),
     ]);
   };
 
-  const toggleFixedColor = (card: Card) => (event: ChangeEvent<HTMLInputElement>) => {
-    const cardsIndex = getCardsIndex(card.id);
+  const toggleFixedColor =
+    (card: Card) => (event: ChangeEvent<HTMLInputElement>) => {
+      const cardsIndex = getCardsIndex(card.id);
 
-    setCards([
-      ...cards.slice(0, cardsIndex),
-      {
-        ...card,
-        style: card.style,
-        isFixedColor: !card.isFixedColor,
-        value: card.value,
-      },
-      ...cards.slice(cardsIndex + 1)
-    ]);
-  };
+      setCards([
+        ...cards.slice(0, cardsIndex),
+        {
+          ...card,
+          style: card.style,
+          isFixedColor: !card.isFixedColor,
+          value: card.value,
+        },
+        ...cards.slice(cardsIndex + 1),
+      ]);
+    };
 
-  const changeTextValue = (card: Card) => (event: ChangeEvent<HTMLInputElement>) => {
-    const cardsIndex = getCardsIndex(card.id);
+  const changeTextValue =
+    (card: Card) => (event: ChangeEvent<HTMLInputElement>) => {
+      const cardsIndex = getCardsIndex(card.id);
 
-    setCards([
-      ...cards.slice(0, cardsIndex),
-      {
-        ...card,
-        style: card.style,
-        value: event.target.value,
-      },
-      ...cards.slice(cardsIndex + 1)
-    ]);
-  };
+      setCards([
+        ...cards.slice(0, cardsIndex),
+        {
+          ...card,
+          style: card.style,
+          value: event.target.value,
+        },
+        ...cards.slice(cardsIndex + 1),
+      ]);
+    };
 
   const transformColor = (data: DraggableData) => {
-    const colorKey = Math.floor((Math.atan2(data.y, data.x) * (180 / Math.PI) + 180) * 19 / 361);
+    const colorKey = Math.floor(
+      ((Math.atan2(data.y, data.x) * (180 / Math.PI) + 180) * 19) / 361,
+    );
     const color = colorList[colorKey];
     return color;
   };
 
   return (
     <div className="center">
-      {cards.map(card => (
+      {cards.map((card) => (
         <React.Fragment key={card.id}>
-          <Draggable bounds="parent" onStart={onStart(card)} onDrag={onDrag(card)}>
+          <Draggable
+            bounds="parent"
+            onStart={onStart(card)}
+            onDrag={onDrag(card)}
+          >
             <div className="card" style={card.style}>
-              <IconButton aria-label="delete" className="delete-button" onClick={() => setDeleteCardId(card.id)} name="deleteButton">
+              <IconButton
+                aria-label="delete"
+                className="delete-button"
+                onClick={() => setDeleteCardId(card.id)}
+                name="deleteButton"
+              >
                 <Delete fontSize="small" />
               </IconButton>
               {/* <AntSwitch

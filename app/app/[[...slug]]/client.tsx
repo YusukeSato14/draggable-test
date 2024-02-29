@@ -1,9 +1,9 @@
-'use client'
+"use client";
 
-import React from 'react'
-import dynamic from 'next/dynamic'
+import dynamic from "next/dynamic";
+import React from "react";
 
-const App = dynamic(() => import('../../src/pages/App'), { ssr: false })
+const App = dynamic(() => import("../../src/pages/App"), { ssr: false });
 
 export function ClientOnly() {
   return <App />;

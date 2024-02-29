@@ -1,28 +1,50 @@
 import { Button } from "@mui/material";
 import React, { memo } from "react";
+import { Card } from "./CardContent";
 
 type Props = {
-  getDeleteCardElement: Function,
-  deleteCardId: number,
-  setDeleteCardId: React.Dispatch<React.SetStateAction<number>>,
-  deleteCard: VoidFunction,
+  getDeleteCardElement: () => Card;
+  deleteCardId: number;
+  setDeleteCardId: React.Dispatch<React.SetStateAction<number>>;
+  deleteCard: VoidFunction;
 };
 
-const DeleteCardModal = memo(({ getDeleteCardElement, deleteCardId, setDeleteCardId, deleteCard }: Props) => {
-  if (deleteCardId === -1) return null;
+const DeleteCardModal = memo(
+  ({
+    getDeleteCardElement,
+    deleteCardId,
+    setDeleteCardId,
+    deleteCard,
+  }: Props) => {
+    if (deleteCardId === -1) return null;
 
-  const deleteCardElement = getDeleteCardElement();
+    const deleteCardElement = getDeleteCardElement();
 
-  return (
-    <div className="DeleteModal">
-      <div className="modal-content">
-        <p>{deleteCardElement.value}</p>
-        <p>削除しますか？</p>
-        <Button className="modal-button" variant="contained" color="primary" onClick={() => deleteCard()}>はい</Button>
-        <Button className="modal-button" variant="outlined" color="primary" onClick={() => setDeleteCardId(-1)}>いいえ</Button>
+    return (
+      <div className="DeleteModal">
+        <div className="modal-content">
+          <p>{deleteCardElement.value}</p>
+          <p>削除しますか？</p>
+          <Button
+            className="modal-button"
+            variant="contained"
+            color="primary"
+            onClick={() => deleteCard()}
+          >
+            はい
+          </Button>
+          <Button
+            className="modal-button"
+            variant="outlined"
+            color="primary"
+            onClick={() => setDeleteCardId(-1)}
+          >
+            いいえ
+          </Button>
+        </div>
       </div>
-    </div>
-  );
-});
+    );
+  },
+);
 
 export default DeleteCardModal;

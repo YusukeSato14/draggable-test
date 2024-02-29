@@ -1,5 +1,5 @@
-import '../assets/App.css';
-import { CardContent } from '../components/CardContent';
+import "../assets/App.css";
+import { CardContent } from "../components/CardContent";
 
 function App() {
   return (
@@ -7,6 +7,6 @@ function App() {
       <CardContent />
     </div>
   );
-};
+}
 
 export default App;

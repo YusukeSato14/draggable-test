@@ -1,39 +1,39 @@
-import { MouseEventHandler, useCallback, useState } from 'react';
+import { MouseEventHandler, useCallback, useState } from "react";
+import CardList from "./CardList";
 
-import CardList from './CardList';
-import DeleteCardModal from './DeleteCardModal';
-import Menu from './Menu';
+import DeleteCardModal from "./DeleteCardModal";
+import Menu from "./Menu";
 
 export type Card = {
-  id: number,
+  id: number;
   style: {
-    backgroundColor: string,
-    zIndex: number,
-  },
-  isFixedColor: boolean,
-  value: string,
+    backgroundColor: string;
+    zIndex: number;
+  };
+  isFixedColor: boolean;
+  value: string;
 };
 
 export const colorList = [
-  '#90A4AE',
-  '#E0E0E0',
-  '#A1887F',
-  '#FF8A65',
-  '#FFB74D',
-  '#FFD54F',
-  '#FFF176',
-  '#DCE775',
-  '#AED581',
-  '#81C784',
-  '#4DB6AC',
-  '#4DD0E1',
-  '#4FC3F7',
-  '#64B5F6',
-  '#7986CB',
-  '#9575CD',
-  '#BA68C8',
-  '#F06292',
-  '#E57373',
+  "#90A4AE",
+  "#E0E0E0",
+  "#A1887F",
+  "#FF8A65",
+  "#FFB74D",
+  "#FFD54F",
+  "#FFF176",
+  "#DCE775",
+  "#AED581",
+  "#81C784",
+  "#4DB6AC",
+  "#4DD0E1",
+  "#4FC3F7",
+  "#64B5F6",
+  "#7986CB",
+  "#9575CD",
+  "#BA68C8",
+  "#F06292",
+  "#E57373",
 ];
 
 // Organismコンポーネント
@@ -50,7 +50,7 @@ export const CardContent = () => {
       zIndex: zIndex,
     },
     isFixedColor: false,
-    value: '',
+    value: "",
   };
   const [cards, setCards] = useState<Card[]>([initialCardState]);
 
@@ -72,29 +72,27 @@ export const CardContent = () => {
           zIndex: newZIndex,
         },
         isFixedColor: false,
-        value: '',
-      }
+        value: "",
+      },
     ]);
   };
 
   const deleteCard = useCallback(() => {
     const deleteCardIndex = getCardsIndex(deleteCardId);
 
-    setCards([
-      ...cards.slice(0, deleteCardIndex),
-      ...cards.slice(deleteCardIndex + 1)
-    ]);
+    setCards(cards.splice(deleteCardIndex, 1));
     setDeleteCardId(-1);
-  }, [deleteCardId]);
+  }, [deleteCardId, cards]);
 
   const getDeleteCardElement = useCallback(() => {
-    const deleteCardElement = cards.find(element => element.id === deleteCardId)!;
+    const deleteCardElement = cards.find(
+      (element) => element.id === deleteCardId,
+    );
     return deleteCardElement;
-  }, [deleteCardId]);
+  }, [deleteCardId, cards]);
 
   const getCardsIndex = (id: number) => {
-    const cardElement = cards.find(element => element.id === id)!;
-    const cardsIndex = cards.indexOf(cardElement);
+    const cardsIndex = cards.findIndex((element) => element.id === id);
 
     return cardsIndex;
   };
