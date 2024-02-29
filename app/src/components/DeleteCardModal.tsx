@@ -3,7 +3,7 @@ import React, { memo } from "react";
 import { Card } from "./CardContent";
 
 type Props = {
-  getDeleteCardElement: () => Card;
+  getDeleteCardElement: () => Card | undefined;
   deleteCardId: number;
   setDeleteCardId: React.Dispatch<React.SetStateAction<number>>;
   deleteCard: VoidFunction;
@@ -23,7 +23,7 @@ const DeleteCardModal = memo(
     return (
       <div className="DeleteModal">
         <div className="modal-content">
-          <p>{deleteCardElement.value}</p>
+          <p>{deleteCardElement?.value}</p>
           <p>削除しますか？</p>
           <Button
             className="modal-button"
