@@ -1,12 +1,5 @@
 import { Delete } from "@mui/icons-material";
-import {
-  IconButton,
-  InputBase,
-  Switch,
-  Theme,
-  createStyles,
-  withStyles,
-} from "@mui/material";
+import { IconButton, InputBase, Switch, styled } from "@mui/material";
 import React, { ChangeEvent } from "react";
 import Draggable, { DraggableData, DraggableEvent } from "react-draggable";
 
@@ -21,42 +14,46 @@ type Props = {
   getCardsIndex: (id: number) => number;
 };
 
-// const AntSwitch = withStyles((theme: Theme) =>
-//   createStyles({
-//     root: {
-//       width: 28,
-//       height: 16,
-//       padding: 2,
-//       display: 'flex',
-//       float: 'right',
-//     },
-//     switchBase: {
-//       padding: 4,
-//       color: theme.palette.grey[500],
-//       '&$checked': {
-//         transform: 'translateX(10px)',
-//         color: theme.palette.common.white,
-//         '& + $track': {
-//           opacity: 1,
-//           backgroundColor: '#80DEEA',
-//           borderColor: '#E0E0E0',
-//         },
-//       },
-//     },
-//     thumb: {
-//       width: 10,
-//       height: 10,
-//       boxShadow: 'none',
-//     },
-//     track: {
-//       border: `1px solid #E0E0E0`,
-//       borderRadius: 16 / 2,
-//       opacity: 1,
-//       backgroundColor: theme.palette.common.white,
-//     },
-//     checked: {},
-//   }),
-// )(Switch);
+const AntSwitch = styled(Switch)(({ theme }) => ({
+  width: 28,
+  height: 16,
+  padding: 0,
+  display: "flex",
+  float: "right",
+  "&:active": {
+    "& .MuiSwitch-thumb": {
+      width: 15,
+    },
+    "& .MuiSwitch-switchBase.Mui-checked": {
+      transform: "translateX(9px)",
+    },
+  },
+  "& .MuiSwitch-switchBase": {
+    padding: 2,
+    color: theme.palette.grey[500],
+    "&.Mui-checked": {
+      transform: "translateX(12px)",
+      color: theme.palette.common.white,
+      "& + .MuiSwitch-track": {
+        opacity: 1,
+        backgroundColor: "#80DEEA",
+      },
+    },
+  },
+  "& .MuiSwitch-thumb": {
+    width: 12,
+    height: 12,
+    boxShadow: "none",
+    borderRadius: 6,
+  },
+  "& .MuiSwitch-track": {
+    borderRadius: 16 / 2,
+    opacity: 1,
+    backgroundColor: theme.palette.common.white,
+    boxXizing: "border-box",
+  },
+  checked: {},
+}));
 
 const CardList = ({
   cards,
@@ -168,11 +165,11 @@ const CardList = ({
               >
                 <Delete fontSize="small" />
               </IconButton>
-              {/* <AntSwitch
+              <AntSwitch
                 checked={card.isFixedColor}
                 onChange={toggleFixedColor(card)}
                 name="colorSwitch"
-              /> */}
+              />
               <InputBase
                 className="card-textarea"
                 autoFocus={true}
