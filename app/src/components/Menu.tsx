@@ -1,3 +1,5 @@
+"use client";
+import { useUser } from "@auth0/nextjs-auth0/client";
 import styled from "@emotion/styled";
 import { Button } from "@mui/material";
 import { MouseEventHandler } from "react";
@@ -34,10 +36,11 @@ const AddButton = styled(Button)({
 });
 
 const Menu = ({ addCard }: Props) => {
+  const { user } = useUser();
+
   return (
     <div className="menu">
-      <LoginButton />
-      <LogoutButton />
+      {!user ? <LoginButton /> : <LogoutButton />}
       <AddButton variant="contained" onClick={addCard}>
         add
       </AddButton>

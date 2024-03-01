@@ -1,4 +1,3 @@
-import { useAuth0 } from "@auth0/auth0-react";
 import { Button, styled } from "@mui/material";
 
 const StyledLoginButton = styled(Button)({
@@ -24,14 +23,10 @@ const StyledLoginButton = styled(Button)({
   },
 });
 
-const LoginButton = () => {
-  const { isAuthenticated, loginWithRedirect } = useAuth0();
-
-  return !isAuthenticated ? (
-    <StyledLoginButton variant="outlined" onClick={loginWithRedirect}>
-      ログイン
-    </StyledLoginButton>
-  ) : null;
-};
+const LoginButton = () => (
+  <StyledLoginButton variant="outlined" href="/api/auth/login">
+    ログイン
+  </StyledLoginButton>
+);
 
 export default LoginButton;

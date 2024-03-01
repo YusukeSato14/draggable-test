@@ -1,3 +1,4 @@
+import { UserProvider } from "@auth0/nextjs-auth0/client";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -14,7 +15,9 @@ export default function RootLayout({
     <html lang="ja">
       <body>
         <noscript>You need to enable JavaScript to run this app.</noscript>
-        <div id="root">{children}</div>
+        <UserProvider>
+          <div id="root">{children}</div>
+        </UserProvider>
       </body>
     </html>
   );

@@ -1,4 +1,3 @@
-import { useAuth0 } from "@auth0/auth0-react";
 import { Button, styled } from "@mui/material";
 
 const StyledLogoutButton = styled(Button)({
@@ -24,19 +23,10 @@ const StyledLogoutButton = styled(Button)({
   },
 });
 
-const LogoutButton = () => {
-  const { isAuthenticated, logout } = useAuth0();
-
-  return isAuthenticated ? (
-    <StyledLogoutButton
-      variant="outlined"
-      onClick={() => {
-        logout({ returnTo: window.location.origin });
-      }}
-    >
-      ログアウト
-    </StyledLogoutButton>
-  ) : null;
-};
+const LogoutButton = () => (
+  <StyledLogoutButton variant="outlined" href="/api/auth/logout">
+    ログアウト
+  </StyledLogoutButton>
+);
 
 export default LogoutButton;
