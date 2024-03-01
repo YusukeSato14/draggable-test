@@ -54,7 +54,7 @@ export const CardContent = () => {
   };
   const [cards, setCards] = useState<Card[]>([initialCardState]);
 
-  const [deleteCardId, setDeleteCardId] = useState(-1);
+  const [deleteCardId, setDeleteCardId] = useState<number>(-1);
 
   const addCard: MouseEventHandler = () => {
     const newCardId = cardId + 1;
@@ -79,8 +79,8 @@ export const CardContent = () => {
 
   const deleteCard = useCallback(() => {
     const deleteCardIndex = getCardsIndex(deleteCardId);
-
-    setCards(cards.splice(deleteCardIndex, 1));
+    cards.splice(deleteCardIndex, 1);
+    setCards(cards);
     setDeleteCardId(-1);
   }, [deleteCardId, cards]);
 
