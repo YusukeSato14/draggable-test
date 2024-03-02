@@ -2,16 +2,35 @@ version: '3'
 services:
   node:
     build:
-      context: .
-      dockerfile: "./Dockerfile"
+      context: ./app/
+      dockerfile: Dockerfile
     tty: true
     image: node
     container_name: node
     volumes:
-      - .:/workspace:cached
+      - ./app:/workspace:cached
       - node_modules:/workspace/app/node_modules
-    # command: sh -c "cd app && yarn run dev"
+    command: sh -c "cd app && yarn dev"
+    ports:
+      - "8000:3000"
+  rails:
+    tty: true
+    depends_on:
+      - db
+    build:
+      context: ./rails/
+      dockerfile: Dockerfile
     ports:
       - "3000:3000"
+    volumes:
+      - ./rails:/workspace
+    command: rails server -b 0.0.0.0
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: example
+    ports:
+      - 5432:5432
 volumes:
   node_modules:
