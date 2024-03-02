@@ -9,8 +9,8 @@ services:
     container_name: node
     volumes:
       - ./app:/workspace:cached
-      - node_modules:/workspace/app/node_modules
-    command: sh -c "cd app && yarn dev"
+      - node_modules:/workspace/node_modules
+    command: yarn dev
     ports:
       - "8000:3000"
   rails:
